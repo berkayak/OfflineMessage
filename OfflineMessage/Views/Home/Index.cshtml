@@ -1,0 +1,379 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container" ng-app="message" ng-controller="chat">
+    <div class="user-info">
+        test
+    </div>
+    <div class="row holder">
+        <div class="col-12"><h3>Mesajlar</h3></div>
+        <div class="col-12" style="margin-bottom: 10px;">
+            <label style="color: #dc3545; font-weight: bold; text-decoration: underline;">MESAJ GEÇMİŞİ</label>
+            <a href="#" class="btn btn-secondary" ng-click="refresh()">Yenile</a>
+        </div>
+        <div class="col-3">
+            <div class="row">
+                
+                <div class="col-lg-12 chat-item" ng-repeat="item in personList">
+                    <a href="#" data-id="{{item.otherUser}}" class="person-selector" ng-click="getMessages(item.otherUser)">
+                        {{item.otherUser}}
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-9 chat-box">
+            <div class="chat-message" ng-repeat="item in messageList">
+                <span style="font-weight:bolder">{{item.sender}}</span> : <span>{{item.text}}</span>
+            </div>
+            <div class="chat-text">
+                <input type="text" placeholder="kullanıcı adı" class="form-control" id="otherUsername" ng-model="otherUser"/>
+                <input type="text" placeholder="Yazın" id="sendMessage" class="form-control" ng-model="msg"/>
+                <input type="button" value="Gönder"  id="send" class="btn btn-info" ng-click="sendMessage(otherUser,msg)"/>
+            </div>
+            <div class="sendMessage-response">
+                <span>
+
+                </span>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row holder">
+        <div class="col-12"><h3>Blok İşlemleri</h3></div>
+        <div class="col-12 inputs">
+            <input type="text" placeholder="Kullanıcı Adı" id="username" class="form-control" ng-model="blockedUser" />
+            <input type="button" value="Blokla" id="block" class="btn btn-info" ng-click="block(blockedUser)"/>
+            <input type="button" value="Blok Kaldır" id="unblock" class="btn btn-info" ng-click="unblock(blockedUser)"/>
+            <span class="response"></span>
+        </div>
+    </div>
+
+    <div class="row holder">
+        <div class="col-12"><h3>Giriş/Üyelik</h3></div>
+        <div class="col-12 col-md-6 login-holder">
+            <h6>Giriş</h6>
+            <input type="text" placeholder="Kullanıcı Adınız" class="form-control" ng-model="loginUsername" />
+            <input type="password" placeholder="Parola" class="form-control" ng-model="loginPassword" />
+            <input type="button" value="Giriş Yap" class="btn btn-info" ng-click="login(loginUsername, loginPassword)" />
+            <span class="login-response"></span>
+        </div>
+
+        <div class="col-12 col-md-6 register-holder">
+            <h6>Üye Ol</h6>
+            <input type="text" placeholder="Kullanıcı Adınız" class="form-control" ng-model="registerUsername" />
+            <input type="password" placeholder="Parola" class="form-control" ng-model="registerPassword" />
+            <input type="password" placeholder="Parola" class="form-control" ng-model="registerConfirmPassword" />
+            <input type="button" value="Üye Ol" class="btn btn-info" ng-click="register(registerUsername, registerPassword,registerConfirmPassword)" />
+            <span class="register-response"></span>
+        </div>
+    </div>
+</div>
+
+@section styles{
+    <style>
+
+        h3{
+            text-align:center;
+        }
+        .chat-item {
+            border-bottom: 1px solid #d5d5d5;
+            background-color: #f5f5f5;
+        }
+
+            .chat-item a {
+                padding: 10px 5px;
+                text-decoration: none;
+                color: #000;
+                font-size: 20px;
+                display: block;
+                font-weight: bold;
+            }
+
+                .chat-item a:hover {
+                    color: #5e4343;
+                }
+
+        .chat-box {
+            border: solid 1px #f5f5f5;
+        }
+
+        .chat-message {
+            font-size: 16px;
+            border-bottom: solid 1px #d8d7d7;
+        }
+
+        .holder {
+            padding: 20px;
+            border: solid 2px #c7c7c7;
+            margin-bottom: 20px;
+        }
+
+        .form-control{
+            width: 200px;
+            margin-bottom: 5px;
+            margin-top: 5px;
+        }
+
+        .user-info { 
+            text-align:center;
+            font-size: 30px;
+            color: #dc3545;
+        }
+    </style>
+
+<style>
+    .block-list {
+        text-align: center;
+    }
+
+    .inputs {
+        padding: 10px;
+        border: solid 1px #f5f5f5;
+    }
+</style>
+
+}
+
+
+@section scripts{
+    <script>
+
+        $(document).ready(function () {
+            var user = localStorage.username;
+            if (user != null) {
+                $(".user-info").html("Hoşgeldin, " + user);
+            }
+            else {
+                $(".user-info").html("Lütfen Giriş Yapın!");
+            }
+        });
+        
+        $("a").click(function (e) {
+            if ($(this).attr("href") == "#")
+                e.preventDefault();
+        });
+
+
+    </script>
+
+    <script>
+        var app = angular.module("message", []);
+        app.controller("chat", function ($scope, $http, $timeout) {
+
+            $(document).ready(function () {
+                getList();
+            })
+
+            $scope.refresh = function () {
+                getList();
+            }
+
+            $scope.getMessages = function (otherUser) {
+                getMessages(otherUser);
+            }
+
+            $scope.sendMessage = function (otherUser, msg) {
+                sendMessage(otherUser, msg);
+            }
+
+            $scope.block = function (otherUser) {
+                blockUser(otherUser);
+            }
+
+            $scope.unblock = function (otherUser) {
+                unblockUser(otherUser);
+            }
+
+            $scope.login = function (username, password) {
+                login(username, password);
+            }
+
+            $scope.register = function (username, password, confirmpassword) {
+                register(username, password, confirmpassword);
+            }
+
+
+            function getList() {
+                var data = { "username": localStorage.username };
+                var config = {
+                    headers: {
+                        'Token': localStorage.Token,
+                        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+                    }
+                }
+
+                $http({
+                    params: data,
+                    url: "/api/Message/getChats",
+                    type: "GET",
+                    headers: { 'Token': localStorage.Token },
+                }).then(function (response) {
+                    console.log(response);
+                    $scope.personList = response.data.Data;
+                }, function (response) {
+                    console.log(response);
+                });
+
+                //$http({
+                //    method: "GET",
+                //    url: "welcome.htm"
+                //}).then(function mySuccess(response) {
+                //    $scope.myWelcome = response.data;
+                //}, function myError(response) {
+                //    $scope.myWelcome = response.statusText;
+                //});
+
+                //$.ajax({
+                //    data: data,
+                //    url: "/api/Message/getChats",
+                //    type: "GET",
+                //    headers: { 'Token': localStorage.Token },
+                //    success: function (response) {
+                //        if (response.isSuccess) {
+                //            $scope.personList = response.Data;
+
+                //        }
+                //    },
+                //});
+            }
+
+            function getMessages(otherUser) {
+                var data = { "username": localStorage.username, "otherUser": otherUser };
+                var headers = { 'Token': localStorage.Token, "Content-Type": 'application/x-www-form-urlencoded;charset=utf-8;' };
+
+                $http({
+                    params: data,
+                    url: "/api/Message/getChats",
+                    type: "GET",
+                    headers: headers,
+                }).then(function (response) {
+                    
+                    $scope.messageList = response.data.Data[0].messages;
+                    console.log($scope.messageList);
+
+                }, function (response) {
+                    console.log(response);
+                });
+
+                //$http({
+                //    method: "GET",
+                //    url: "welcome.htm"
+                //}).then(function mySuccess(response) {
+                //    $scope.myWelcome = response.data;
+                //}, function myError(response) {
+                //    $scope.myWelcome = response.statusText;
+                //});
+
+                //$.ajax({
+                //    data: data,
+                //    url: "/api/Message/getChats",
+                //    type: "GET",
+                //    headers: { 'Token': localStorage.Token },
+                //    success: function (response) {
+                //        if (response.isSuccess) {
+                //            $scope.personList = response.Data;
+
+                //        }
+                //    },
+                //});
+            }
+
+            function sendMessage(otherUser, message) {
+                var data = { "username": localStorage.username, "otherUsername": otherUser, "msg": message };
+                var headers = { 'Token': localStorage.Token, "Content-Type": 'application/x-www-form-urlencoded;charset=utf-8;' };
+
+                $http({
+                    params: data,
+                    url: "/api/Message/sendMessage",
+                    method: "POST",
+                    headers: headers,
+                }).then(function (response) {
+                    $(".sendMessage-response span").html(response.data.message);
+                    $(".chat-text input[type='text']").val("");
+                }, function (response) {
+                    console.log(response);
+                });
+            }
+
+            function blockUser(otherUser) {
+                var data = { "blocker": localStorage.username, "blocked": otherUser };
+                var headers = { 'Token': localStorage.Token, "Content-Type": 'application/x-www-form-urlencoded;charset=utf-8;' };
+
+                $http({
+                    params: data,
+                    url: "/api/Message/BlockUSer",
+                    method: "POST",
+                    headers: headers,
+                }).then(function (response) {
+                    $(".response").html(response.data.message);
+                    $(".inputs input[type='text']").val("");
+                }, function (response) {
+                    console.log(response);
+                });
+            }
+
+            function unblockUser(otherUser) {
+                var data = { "blocker": localStorage.username, "blocked": otherUser };
+                var headers = { 'Token': localStorage.Token, "Content-Type": 'application/x-www-form-urlencoded;charset=utf-8;' };
+
+                $http({
+                    params: data,
+                    url: "/api/Message/UnBlockUSer",
+                    method: "POST",
+                    headers: headers,
+                }).then(function (response) {
+                    $(".response").html(response.data.message);
+                    $(".inputs input[type='text']").val("");
+                }, function (response) {
+                    console.log(response);
+                });
+            }
+
+            function login(username, password) {
+                var data = { "username": username, "password": password };
+                
+                $http({
+                    params: data,
+                    url: "/api/User/Login",
+                    method: "POST",
+                }).then(function (response) {
+                    $(".login-response").html(response.data.message);
+                    $(".login-holder input[type='text']").val("");
+                    if (response.data.isSuccess) {
+                        localStorage.Token = response.data.Data.token;
+                        localStorage.username = username;
+                        location.reload();
+                    }
+                }, function (response) {
+                    console.log(response);
+                });
+            }
+
+            function register(username, password, confirmpassword) {
+                var data = { "username": username, "password": password, "confirmPassword": confirmpassword };
+
+                $http({
+                    params: data,
+                    url: "/api/User/Register",
+                    method: "POST",
+                }).then(function (response) {
+                    $(".register-response").html(response.data.message);
+                    $(".register-holder input[type='text']").val("");
+                    $(".register-holder input[type='password']").val("");
+                    if (response.data.isSuccess) {
+                        localStorage.removeItem("Token");
+                        localStorage.removeItem("username");
+                        location.reload();
+                    }
+                }, function (response) {
+                    console.log(response);
+                });
+            }
+        });
+
+    </script>
+
+}

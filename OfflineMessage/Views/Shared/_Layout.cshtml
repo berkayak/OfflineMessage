@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+    <script src="~/Content/angular.min.js"></script>
+
+
+    @RenderSection("styles", required: false)
+</head>
+<body>
+
+    <div class="container-fluid menu">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="menun-item">
+                        Offline Messaging
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid render-body">
+        @RenderBody()
+    </div>
+
+
+    <style>
+        .menu{
+            background-color: #5f4343;
+            padding: 20px;
+            color: #fff;
+        }
+
+        .menun-item{
+            font-size: 30px;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            text-align:center;
+        }
+
+        .render-body{
+            padding-top: 100px;
+            padding-bottom: 100px;
+        }
+
+
+
+    </style>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
