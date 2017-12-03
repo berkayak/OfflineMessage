@@ -13,10 +13,5 @@ namespace OfflineMessage.Controllers
         {
             return View();
         }
-
-        public ActionResult Block()
-        {
-            return View();
-        }
     }
 }

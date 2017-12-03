@@ -11,6 +11,12 @@ namespace OfflineMessage.Controllers
 {
     public class UserController : ApiController
     {
+        /// <summary>
+        /// Login işlemi yapar, Giriş başarılı ise token döner
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         [HttpPost]
         public ApiResponse<UserToken> Login(string username, string password)
         {
@@ -25,6 +31,13 @@ namespace OfflineMessage.Controllers
             }
         }
 
+        /// <summary>
+        /// Register işlemi yapar
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <param name="confirmPassword"></param>
+        /// <returns></returns>
         [HttpPost]
         public ApiResponse Register(string username, string password, string confirmPassword)
         {

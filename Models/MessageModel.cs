@@ -10,7 +10,7 @@ namespace Models
     {
         public string sender { get; set; }
         public string recipient { get; set; }
-        public DateTime date { get; set; }
+        public string date { get; set; }
         public string text { get; set; }
         public bool isRead { get; set; }
         public DateTime? readDate { get; set; }

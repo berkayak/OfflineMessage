@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccess;
 using Models;
+using System.Globalization;
 
 namespace Business
 {
@@ -35,7 +36,7 @@ namespace Business
                                     orderby s.date descending
                                     select new message
                                     {
-                                        date = s.date,
+                                        date = s.date.ToShortDateString(),
                                         text = s.messageContent,
                                         sender = (from p in db.User where p.ID == s.senderID select p.username).FirstOrDefault(),
                                         recipient = (from p in db.User where p.ID == s.recipientID select p.username).FirstOrDefault(),
@@ -114,12 +115,13 @@ namespace Business
             {
                 try
                 {
-                    message = (from s in db.Message
+                    CultureInfo tr = new CultureInfo("tr-TR");
+                    message = (from s in db.Message.ToList()
                                where s.senderID == user.ID || s.recipientID == user.ID
                                orderby s.date descending
                                select new message
                                {
-                                   date = s.date,
+                                   date = s.date.ToString("G", tr),
                                    text = s.messageContent,
                                    sender = (from p in db.User where p.ID == s.senderID select p.username).FirstOrDefault(),
                                    recipient = (from p in db.User where p.ID == s.recipientID select p.username).FirstOrDefault(),

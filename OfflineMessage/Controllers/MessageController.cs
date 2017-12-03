@@ -12,7 +12,13 @@ namespace OfflineMessage.Controllers
 {
     public class MessageController : ApiController
     {
-
+        /// <summary>
+        /// POST: Request header bilgisinde Token gereklidir.
+        /// </summary>
+        /// <param name="username">Gönderici</param>
+        /// <param name="otherUsername">Alıcı</param>
+        /// <param name="msg">Mesaj</param>
+        /// <returns></returns>
         [HttpPost]
         public ApiResponse sendMessage(string username, string otherUsername, string msg)
         {
@@ -35,28 +41,12 @@ namespace OfflineMessage.Controllers
             }
         }
 
-        [HttpGet]
-        public ApiResponse<List<message>> getMessages(string username, string otherUsername = "")
-        {
-            string token = Request.Headers.GetValues("Token").FirstOrDefault();
-
-            BusinessResponse<List<message>> bResponse;
-
-            if (string.IsNullOrEmpty(otherUsername))
-                bResponse = Business.Message.getAllMessages(username, token);
-            else
-                bResponse = Business.Message.getMessages(username, otherUsername, token);
-
-            if (bResponse.isSuccess)
-            {
-                return new ApiResponse<List<message>>() { isSuccess = true, message = bResponse.message, Data = bResponse.Data };
-            }
-            else
-            {
-                return new ApiResponse<List<message>>() { isSuccess = false, message = bResponse.message, Data = null };
-            }
-        }
-
+        /// <summary>
+        /// GET: Kullanıcının mesajlarını, mesajlaştığı kişiye göre kategorize eder
+        /// </summary>
+        /// <param name="username">Kullanıcı</param>
+        /// <param name="otherUser">Opsiyonek: Belirli bir kişi olan chat getirilir</param>
+        /// <returns></returns>
         [HttpGet]
         public ApiResponse<List<Chat>> getChats(string username, string otherUser = "")
         {
@@ -102,6 +92,12 @@ namespace OfflineMessage.Controllers
             return chat;
         }
 
+        /// <summary>
+        /// POST: Kullanıcı bloklama işlemi yapar
+        /// </summary>
+        /// <param name="blocker">Bloklayan kullanıcı</param>
+        /// <param name="blocked"></param>
+        /// <returns></returns>
         [HttpPost]
         public ApiResponse BlockUSer(string blocker, string blocked)
         {
@@ -119,6 +115,12 @@ namespace OfflineMessage.Controllers
             }
         }
 
+        /// <summary>
+        /// Var olan blok kaldırılır
+        /// </summary>
+        /// <param name="blocker">Bloklamış olan kişi</param>
+        /// <param name="blocked">Bloklanmış olan kullanıcı</param>
+        /// <returns></returns>
         [HttpPost]
         public ApiResponse UnBlockUSer(string blocker, string blocked)
         {

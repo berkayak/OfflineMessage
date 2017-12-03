@@ -8,8 +8,8 @@ namespace Models
 {
     public class Chat
     {
-        public DateTime firstMessageDate { get; set; }
-        public DateTime lastMessageDate { get; set; }
+        public string firstMessageDate { get; set; }
+        public string lastMessageDate { get; set; }
         public string otherUser { get; set; }
         public List<message> messages { get; set; }
     }
