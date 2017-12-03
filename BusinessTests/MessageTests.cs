@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace Business.Tests
 {
@@ -20,7 +21,26 @@ namespace Business.Tests
         [TestMethod()]
         public void getAllMessagesTest()
         {
-            Message.getAllMessages("berkay", "12d6b663fe7c454fb6719dc11b44f6c78223cdf972ff47d992e8a7cdd0e861a0");
+            var a = Message.getAllMessages("berkay", "12d6b663fe7c454fb6719dc11b44f6c78223cdf972ff47d992e8a7cdd0e861a0");
+
+
+            foreach (var item in a.Data)
+            {
+                Trace.WriteLine(item.text);
+            }
+            Trace.WriteLine(a.Data.Count.ToString());
+        }
+
+        [TestMethod()]
+        public void getMessagesTest()
+        {
+            var a = Message.getMessages("berkay", "berkay4", "12d6b663fe7c454fb6719dc11b44f6c78223cdf972ff47d992e8a7cdd0e861a0");
+
+            foreach (var item in a.Data)
+            {
+                Trace.WriteLine(item.text);
+            }
+            Trace.WriteLine(a.Data.Count.ToString());
         }
     }
 }
