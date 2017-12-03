@@ -191,6 +191,7 @@ app.controller("chat", function ($scope, $http, $timeout) {
         }).then(function (response) {
             $(".login-response").html(response.data.message);
             $(".login-holder input[type='text']").val("");
+            $(".login-holder input[type='password']").val("");
             if (response.data.isSuccess) {
                 localStorage.Token = response.data.Data.token;
                 localStorage.username = username;
