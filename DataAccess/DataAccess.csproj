@@ -95,12 +95,26 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
+    <None Include="bin\Debug\DataAccess.dll.config" />
+    <None Include="bin\Release\DataAccess.dll.config" />
     <None Include="MyEntityModel.edmx.diagram">
       <DependentUpon>MyEntityModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Debug\DataAccess.dll" />
+    <Content Include="bin\Debug\DataAccess.pdb" />
+    <Content Include="bin\Debug\EntityFramework.dll" />
+    <Content Include="bin\Debug\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\Debug\EntityFramework.SqlServer.xml" />
+    <Content Include="bin\Debug\EntityFramework.xml" />
+    <Content Include="bin\Release\DataAccess.dll" />
+    <Content Include="bin\Release\DataAccess.pdb" />
+    <Content Include="bin\Release\EntityFramework.dll" />
+    <Content Include="bin\Release\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\Release\EntityFramework.SqlServer.xml" />
+    <Content Include="bin\Release\EntityFramework.xml" />
     <Content Include="MyEntityModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>MyEntityModel.edmx</DependentUpon>

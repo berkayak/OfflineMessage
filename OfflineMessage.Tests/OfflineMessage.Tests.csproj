@@ -78,7 +78,61 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="bin\Debug\OfflineMessage.Tests.dll.config" />
+    <None Include="bin\Debug\roslyn\Microsoft.CSharp.Core.targets" />
+    <None Include="bin\Debug\roslyn\Microsoft.VisualBasic.Core.targets" />
+    <None Include="bin\Debug\roslyn\VBCSCompiler.exe.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\Business.dll" />
+    <Content Include="bin\Debug\Business.pdb" />
+    <Content Include="bin\Debug\DataAccess.dll" />
+    <Content Include="bin\Debug\DataAccess.pdb" />
+    <Content Include="bin\Debug\EntityFramework.dll" />
+    <Content Include="bin\Debug\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\Debug\EntityFramework.SqlServer.xml" />
+    <Content Include="bin\Debug\EntityFramework.xml" />
+    <Content Include="bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll" />
+    <Content Include="bin\Debug\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="bin\Debug\Models.dll" />
+    <Content Include="bin\Debug\Models.pdb" />
+    <Content Include="bin\Debug\Newtonsoft.Json.dll" />
+    <Content Include="bin\Debug\Newtonsoft.Json.xml" />
+    <Content Include="bin\Debug\OfflineMessage.dll" />
+    <Content Include="bin\Debug\OfflineMessage.pdb" />
+    <Content Include="bin\Debug\OfflineMessage.Tests.dll" />
+    <Content Include="bin\Debug\OfflineMessage.Tests.pdb" />
+    <Content Include="bin\Debug\roslyn\csc.exe" />
+    <Content Include="bin\Debug\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll" />
+    <Content Include="bin\Debug\roslyn\Microsoft.CodeAnalysis.CSharp.dll" />
+    <Content Include="bin\Debug\roslyn\Microsoft.CodeAnalysis.dll" />
+    <Content Include="bin\Debug\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll" />
+    <Content Include="bin\Debug\roslyn\System.Collections.Immutable.dll" />
+    <Content Include="bin\Debug\roslyn\System.Reflection.Metadata.dll" />
+    <Content Include="bin\Debug\roslyn\vbc.exe" />
+    <Content Include="bin\Debug\roslyn\VBCSCompiler.exe" />
+    <Content Include="bin\Debug\System.Net.Http.Formatting.dll" />
+    <Content Include="bin\Debug\System.Net.Http.Formatting.xml" />
+    <Content Include="bin\Debug\System.Web.Http.dll" />
+    <Content Include="bin\Debug\System.Web.Http.WebHost.dll" />
+    <Content Include="bin\Debug\System.Web.Http.WebHost.xml" />
+    <Content Include="bin\Debug\System.Web.Http.xml" />
+    <Content Include="bin\Debug\System.Web.Mvc.dll" />
+    <Content Include="bin\Debug\System.Web.Mvc.xml" />
+    <Content Include="bin\Debug\System.Web.Optimization.dll" />
+    <Content Include="bin\Debug\System.Web.Optimization.xml" />
+    <Content Include="bin\Debug\System.Web.Razor.dll" />
+    <Content Include="bin\Debug\System.Web.Razor.xml" />
+    <Content Include="bin\Debug\System.Web.WebPages.Deployment.dll" />
+    <Content Include="bin\Debug\System.Web.WebPages.Deployment.xml" />
+    <Content Include="bin\Debug\System.Web.WebPages.dll" />
+    <Content Include="bin\Debug\System.Web.WebPages.Razor.dll" />
+    <Content Include="bin\Debug\System.Web.WebPages.Razor.xml" />
+    <Content Include="bin\Debug\System.Web.WebPages.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Release\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

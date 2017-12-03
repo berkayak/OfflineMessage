@@ -78,6 +78,25 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
+    <None Include="bin\Debug\BusinessTests.dll.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\Business.dll" />
+    <Content Include="bin\Debug\Business.pdb" />
+    <Content Include="bin\Debug\BusinessTests.dll" />
+    <Content Include="bin\Debug\BusinessTests.pdb" />
+    <Content Include="bin\Debug\DataAccess.dll" />
+    <Content Include="bin\Debug\DataAccess.pdb" />
+    <Content Include="bin\Debug\EntityFramework.dll" />
+    <Content Include="bin\Debug\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\Debug\EntityFramework.SqlServer.xml" />
+    <Content Include="bin\Debug\EntityFramework.xml" />
+    <Content Include="bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll" />
+    <Content Include="bin\Debug\Models.dll" />
+    <Content Include="bin\Debug\Models.pdb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Release\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
